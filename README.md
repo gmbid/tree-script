@@ -1,6 +1,6 @@
 # treescript
 
-post a position within seconds. long basket of perps, split equally.
+post a position within seconds. long/short basket of perps, split equally.
 
 ## how it works
 
