@@ -3,7 +3,13 @@ import chalk from "chalk";
 import inquirer from "inquirer";
 
 // !IMPORTANT: Set these before running the script in the right format, e.g. "ETH/USD:USD"
-const TICKERS = ["ETH/USD:USD", "SOL/USD:USD"];
+const TICKERS = [
+  "ETH/USD:USD",
+  "EGLD/USD:USD",
+  "BTC/USD:USD",
+  "XRP/USD:USD",
+  "CHZ/USD:USD",
+];
 
 //FTX related;
 let ftx;
