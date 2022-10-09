@@ -1,7 +1,6 @@
 import ccxt from "ccxt";
 import chalk from "chalk";
 import inquirer from "inquirer";
-import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 
@@ -38,10 +37,10 @@ inquirer
   .prompt([
     {
       type: "input",
-      name: "apiKey",
+      name: "API_KEY",
       message:
         "FTX API Key: (note: this key is only stored in the current process and will get deleted once you end it)",
-      default: process.env.ApiKey,
+      default: process.env.API_KEY,
       filter(value) {
         apiKey = value;
         return value;
@@ -49,31 +48,16 @@ inquirer
     },
     {
       type: "input",
-      name: "secretKey",
+      name: "API_SECRET",
       message:
-        "FTX Secret Key (note: this secret is only stored in the current process and will get deleted once you end it)",
-      default: process.env.ApiSecret,
+        "FTX Secret: (note: this secret is only stored in the current process and will get deleted once you end it)",
+      default: process.env.API_SECRET,
       filter: async (value) => {
         //initiate ftx class
         ftx = new ccxt.ftx({
           apiKey,
           secret: value,
         });
-
-        //fetch the lastest market prices for long basket & set it
-        for (let i = 0; i < LONG_TICKERS.length; i++) {
-          const ticker = LONG_TICKERS[i];
-          const tickerPrice = await ftx.fetchTicker(ticker);
-          lastTickerPricesLong.push(tickerPrice.last);
-        }
-
-        //fetch the lastest market prices for short basket & set it
-        for (let i = 0; i < SHORT_TICKERS.length; i++) {
-          const ticker = SHORT_TICKERS[i];
-          const tickerPrice = await ftx.fetchTicker(ticker);
-          lastTickerPricesShort.push(tickerPrice.last);
-        }
-
         return value;
       },
     },
@@ -111,6 +95,28 @@ inquirer
       },
       filter: Number,
       default: 1,
+    },
+    {
+      type: "input",
+      name: "Ready",
+      message: "Press enter when ready to trade",
+      default: "",
+      filter: async (value) => {
+        //fetch the lastest market prices for long basket & set it
+        for (let i = 0; i < LONG_TICKERS.length; i++) {
+          const ticker = LONG_TICKERS[i];
+          const tickerPrice = await ftx.fetchTicker(ticker);
+          lastTickerPricesLong.push(tickerPrice.last);
+        }
+
+        //fetch the lastest market prices for short basket & set it
+        for (let i = 0; i < SHORT_TICKERS.length; i++) {
+          const ticker = SHORT_TICKERS[i];
+          const tickerPrice = await ftx.fetchTicker(ticker);
+          lastTickerPricesShort.push(tickerPrice.last);
+        }
+        return value;
+      },
     },
     {
       type: "list",
