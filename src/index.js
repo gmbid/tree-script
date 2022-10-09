@@ -40,7 +40,7 @@ inquirer
       type: "input",
       name: "apiKey",
       message:
-        "Enter you FTX api key (note: this key is only stored in the current process and will get deleted once you end it”)",
+        "FTX API Key: (note: this key is only stored in the current process and will get deleted once you end it)",
       default: process.env.ApiKey,
       filter(value) {
         apiKey = value;
@@ -51,7 +51,7 @@ inquirer
       type: "input",
       name: "secretKey",
       message:
-        "Enter you FTX secret key (note: this secret is only stored in the current process and will get deleted once you end it”)",
+        "FTX Secret Key (note: this secret is only stored in the current process and will get deleted once you end it)",
       default: process.env.ApiSecret,
       filter: async (value) => {
         //initiate ftx class
